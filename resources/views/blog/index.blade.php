@@ -9,6 +9,14 @@
     </div>
 </div>
 
+@if (session()->has('message'))
+    <div class="w-4/5 m-auto mt-10 pl-2">
+        <p class="w-1/6 mb-4 text-gray-50 bg-green-500 rounded-2xl py-4 px-3">
+            {{ session()->get('message') }}
+        </p>
+    </div>
+@endif
+
 @if (Auth::check())
     <div class="pt-15 w-4/5 m-auto">
         <a 
@@ -23,7 +31,7 @@
 @foreach ($posts as $post)
     <div class="sm:grid grid-cols-2 gap-2 w-4/5 mx-auto py-15 border-b border-gray-200">
         <div>
-            <img src="https://cdn.pixabay.com/photo/2014/05/03/01/03/laptop-336704_960_720.jpg" alt="" width="400">
+            <img src="{{ asset('images/'.$post->image_path) }}" alt="" width="400">
         </div>
         <div>
             <h2 class="text-gray-700 font-bold text-5xl pb-4">
@@ -35,7 +43,7 @@
             <p class="text-xl text-gray-700 pt-8 pb-10 leading-8 font-light">
                 {{ $post->description }}
             </p>
-            <a href="/blog/{{ $post->slug }}" class="uppercase bg-blue-500 text-gray-100 text-lg font-extrabold py-4 px-8 rounded-3xl">
+            <a href="/blog/{{ $post->slug }}" class="uppercase bg-blue-500 text-gray-100 text-md font-extrabold py-3 px-6 rounded-3xl">
                 Keep Reading
             </a>
         </div>
