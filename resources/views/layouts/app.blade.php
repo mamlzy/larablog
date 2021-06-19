@@ -14,10 +14,14 @@
     
     <!-- Styles -->
     <link href="{{ mix('css/app.css') }}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    {{-- Custom Font --}}
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,wght@0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
 </head>
-<body class="bg-gray-100 h-screen antialiased leading-none font-sans">
+<body class="bg-gray-100 h-screen antialiased leading-none font-nunito">
     <div id="app">
-        <header class="bg-blue-900 py-6">
+        <header class="bg-gray-800 py-6">
             <div class="container mx-auto flex justify-between items-center px-6">
                 <div>
                     <a href="{{ url('/') }}" class="text-lg font-semibold text-gray-100 no-underline">
@@ -25,6 +29,12 @@
                     </a>
                 </div>
                 <nav class="space-x-4 text-gray-300 text-sm sm:text-base">
+                    <a class="no-underline hover:underline" href="/">
+                        Home
+                    </a>
+                    <a class="no-underline hover:underline" href="/blog">
+                        Blog
+                    </a>
                     @guest
                         <a class="no-underline hover:underline" href="{{ route('login') }}">{{ __('Login') }}</a>
                         @if (Route::has('register'))
@@ -34,9 +44,10 @@
                         <span>{{ Auth::user()->name }}</span>
 
                         <a href="{{ route('logout') }}"
-                           class="no-underline hover:underline"
-                           onclick="event.preventDefault();
-                                document.getElementById('logout-form').submit();">{{ __('Logout') }}</a>
+                            class="no-underline hover:underline"
+                            onclick="event.preventDefault();
+                            document.getElementById('logout-form').submit();">{{ __('Logout') }}
+                        </a>
                         <form id="logout-form" action="{{ route('logout') }}" method="POST" class="hidden">
                             {{ csrf_field() }}
                         </form>
@@ -45,7 +56,13 @@
             </div>
         </header>
 
-        @yield('content')
+        <div>
+            @yield('content')
+        </div>
+
+        <div>
+            @include('layouts.footer')
+        </div>
     </div>
 </body>
 </html>
