@@ -20,7 +20,18 @@ class PostsController extends Controller
     public function index()
     {
         return view('blog.index')
-            ->with('posts', Post::orderBy('updated_at', 'DESC')->get());
+            ->with('posts', Post::orderBy('updated_at', 'DESC')->paginate(2));
+    }
+
+    public function search(Request $request)
+    {
+        $posts = Post::where('title', 'like', '%'.$request->search.'%')
+            ->orderBy('updated_at', 'DESC')
+            ->paginate(2);
+            // !Use orWhere() to search with another column
+            // ->orWhere('')
+
+        return view('blog.index', compact('posts'));
     }
 
     /**

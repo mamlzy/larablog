@@ -28,7 +28,25 @@
     </div>
 @endif
 
-@foreach ($posts as $post)
+<div class="m-auto w-4/5 pt-10">
+    <form action="/blog/search" method="GET" class="flex justify-between">
+        <input 
+            type="text" 
+            name="search"
+            class="rounded w-full border h-11 pl-3"
+            placeholder="Search blogs..."
+            value="{{ old('cari') }}"
+        >
+        <button 
+            type="submit"
+            class="bg-blue-500 text-white p-3 rounded-lg ml-5"
+        >
+            Submit
+        </button>
+    </form>
+</div>
+
+@forelse ($posts as $post)
     <div class="md:grid grid-cols-2 gap-2 w-4/5 mx-auto py-15 border-b border-gray-200">
         <div>
             <img src="{{ asset('images/'.$post->image_path) }}" alt="" width="400">
@@ -72,6 +90,18 @@
             @endif
         </div>
     </div>
-@endforeach
+    {{-- <div class="m-auto w-4/5">
+        Halaman : {{ $posts->currentPage() }} <br/>
+        Jumlah Data : {{ $posts->total() }} <br/>
+        Data Per Halaman : {{ $posts->perPage() }} <br/>
+    </div> --}}
+    <div class="m-auto w-4/5">
+        {{ $posts->links() }}
+    </div>
+@empty
+    <div class="m-auto w-4/5 text-center text-3xl uppercase mt-10">
+        No Data Found
+    </div>
+@endforelse
 
 @endsection
